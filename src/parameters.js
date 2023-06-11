@@ -6,28 +6,26 @@
 // utils.js provides methods for extracting various types of parameters for later use
 
 export default {
-		dt:1,
-		L:100,
-		agentsize: 1.0,
-	
-		speed: {
-			range:[0,1],
-			default:0.2
+		N:100,
+		diffusion_rate: {
+			range:[0.05,0.3],
+		default:0.1
 		},
-		wiggle: {
-			range:[0,180],
-			default:50
+		reproduction_rate:{
+			range : [0.05,1],
+			default : 0.3
 		},
-		interaction_radius:{
-			range : [0,5],
-			default : 3
+		local_capacity:{
+			range : [5,50],
+			default : 20
 		},
-		number_of_particles : {
-			choices:[50,100,200,400],
-		default:2
+		initial_radius:{
+			range : [0.01,0.4],
+			default : 0.15
 		},
-		color_by_heading: {
-			default: true
+		number_of_mutants : {
+			choices:["2 Mutants","3 Mutants"],
+		default:0
 		}
 }
 

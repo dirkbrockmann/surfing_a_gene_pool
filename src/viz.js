@@ -8,10 +8,19 @@
 import * as d3 from "d3"
 import param from "./parameters.js"
 import {agents} from "./model.js"
+import {each} from "lodash-es"
 
-const L = param.L;
-const X = d3.scaleLinear().domain([0,L]);
-const Y = d3.scaleLinear().domain([0,L]);
+
+const X = d3.scaleLinear().domain([-0.5,0.5]);
+const Y = d3.scaleLinear().domain([-0.5,0.5]);
+
+var ctx,dL,W,H;
+
+function agent_color(a){
+	const nm = param.number_of_mutants.widget.value();
+	const c = param.local_capacity.widget.value();
+	return nm == 0 ? d3.rgb(255*a.u/c,255*a.v/c,0,(a.u+a.v)/c) : d3.rgb(255*a.u/c,255*a.v/c,255*a.w/c,(a.u+a.v+a.w)/c)
+}
 
 // the initialization function, this is bundled in simulation.js with the initialization of
 // the model and effectively executed in index.js when the whole explorable is loaded
@@ -19,23 +28,28 @@ const Y = d3.scaleLinear().domain([0,L]);
 
 const initialize = (display,config) => {
 
-	const W = config.display_size.width;
-	const H = config.display_size.height;
 	
+	W = config.display_size.width;
+	H = config.display_size.height;
+			
 	X.range([0,W]);
 	Y.range([0,H]);
+	
+	ctx = display.node().getContext('2d');	
+	ctx.clearRect(1, 1, W-2, H-2);
+	each(agents,a=>{
+		const c = a.cell();		
+		const color = agent_color(a);
 		
-	display.selectAll("#origin").remove();
-	display.selectAll(".node").remove();
+		ctx.fillStyle=color;
+		ctx.strokeStyle=color;
+		ctx.lineWidth = 0;
+		ctx.fillRect(X(c[0].x),X(c[0].y),X(c[2].x)-X(c[0].x),X(c[2].y)-X(c[0].y))
+	})
 	
-	const origin = display.append("g").attr("id","origin")
-	
-	origin.selectAll(".node").data(agents).enter().append("circle")
-		.attr("class","node")
-		.attr("cx",d=>X(d.x))
-		.attr("cy",d=>Y(d.y))
-		.attr("r",X(param.agentsize/2))
-		.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : "black")
+	 // ctx.strokeStyle = "black";
+ // 	 ctx.lineWidth = 4;
+ // 	 ctx.strokeRect(0, 0, W, H);
 	
 };
 
@@ -46,10 +60,20 @@ const initialize = (display,config) => {
 
 const go = (display,config) => {
 	
-	display.selectAll(".node")
-		.attr("cx",d=>X(d.x))
-		.attr("cy",d=>Y(d.y))
-		.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : "black")
+	ctx.clearRect(1, 1, W-2, H-2);
+	each(agents,a=>{
+		const c = a.cell();		
+		const color = agent_color(a);
+		
+		ctx.fillStyle=color;
+		ctx.strokeStyle=color;
+		ctx.lineWidth = 0;
+		ctx.fillRect(X(c[0].x),X(c[0].y),X(c[2].x)-X(c[0].x),X(c[2].y)-X(c[0].y))
+	})
+	
+	// ctx.strokeStyle = "black";
+	// ctx.lineWidth = 4;
+	// ctx.strokeRect(0, 0, W, H);
 	
 }
 
@@ -59,8 +83,8 @@ const go = (display,config) => {
 
 const update = (display,config) => {
 	
-	display.selectAll(".node")
-		.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : "black")
+	// display.selectAll(".node")
+	// 	.style("fill", d => param.color_by_heading.widget.value() ? d3.interpolateSinebow(d.theta/2/Math.PI)  : "black")
 	
 }
 
