@@ -6,10 +6,16 @@
 // utils.js provides methods for extracting various types of parameters for later use
 
 export default {
-		N:100,
+		edge_size: {
+			range:[50,300],
+			default : 100
+		},
 		diffusion_rate: {
 			range:[0.05,0.3],
-		default:0.1
+			default:0.1
+		},
+		proportional_defusion:{
+			default : false
 		},
 		reproduction_rate:{
 			range : [0.05,1],
@@ -24,8 +30,12 @@ export default {
 			default : 0.15
 		},
 		number_of_mutants : {
-			choices:["2 Mutants","3 Mutants"],
+			choices:["2","3", "4", "5", "6 Mutants"],
 		default:0
+		},
+		start_layout : {
+			choices:["Circle","Line"],
+			default:0
 		}
 }
 

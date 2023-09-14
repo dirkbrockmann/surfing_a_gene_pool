@@ -14,19 +14,19 @@ import {toArray,add_id_label,add_widget,get_variables,get_booleans,get_choices} 
 // defined variables for variables, booleans and choices, extracting the information from parameters.js
 
 const variables = get_variables(parameters);
-//const booleans = get_booleans(parameters);
+const booleans = get_booleans(parameters);
 const choices = get_choices(parameters);
 
 // adding ids and labels to the variables based on names for the variables, see utils.js for the function add_id_label
 
 add_id_label(variables)
-//add_id_label(booleans)
+add_id_label(booleans)
 add_id_label(choices)
 
 // making arrays for the three types of parameters
 
 const va = toArray(variables);
-//const bo = toArray(booleans);
+const bo = toArray(booleans);
 const ch = toArray(choices);
 
 // making the slider widgets objects, based on the variables
@@ -45,12 +45,12 @@ const sliders = map(va,
 
 // making the toggle widgets objects, based on the switches
 		
-// const toggles = map(bo,
-// 		v => widgets.toggle()
-// 					.id(v.id).
-// 					label(v.label).
-// 					value(v.default)
-// 		);
+ const toggles = map(bo,
+ 		v => widgets.toggle()
+ 					.id(v.id).
+ 					label(v.label).
+ 					value(v.default)
+ 		);
 
 // making the radio widgets objects, based on the choices
 		
@@ -73,7 +73,7 @@ const radios = map(ch,
 // this is handy, because the actual widgets are connected to the associated parameters
 // this is important, if one wants to access the widgets based on parameters.
 		
-//add_widget(bo,toggles);
+add_widget(bo,toggles);
 add_widget(va,sliders);
 add_widget(ch,radios);
 
@@ -100,17 +100,18 @@ export default (controls,grid)=>{
 	const sl_pos=grid.position(cfg.widgets.slider_anchor.x,range(sliders.length)
 			.map(x=>(cfg.widgets.slider_anchor.y+cfg.widgets.slider_gap*x)));
 	
-//	const tg_pos=grid.position(cfg.widgets.toggle_anchor.x,cfg.widgets.toggle_anchor.y);	
+	const tg_pos=grid.position(cfg.widgets.toggle_anchor.x,cfg.widgets.toggle_anchor.y);	
 
-	const ra_pos=grid.position(cfg.widgets.radio_anchor.x,cfg.widgets.radio_anchor.y);		
+	const ra_pos=grid.position(cfg.widgets.radio_anchor.x,range(sliders.length)
+			.map(x=>(cfg.widgets.radio_anchor.y+cfg.widgets.slider_gap*x)));		
 	
 	sliders.forEach((sl,i) => sl.position(sl_pos[i]));
 	
 
-//	toggles[0].position(tg_pos).labelposition(cfg.widgets.toggle_label_pos)
+	toggles[0].position(tg_pos).labelposition(cfg.widgets.toggle_label_pos)
 
-	radios[0].position(ra_pos)
-		.size(cfg.widgets.radio_size).shape(cfg.widgets.radio_shape)
+	radios.forEach((ra,i) => ra.position(ra_pos[i])
+		.size(cfg.widgets.radio_size).shape(cfg.widgets.radio_shape))
 	
 	go.position(grid.position(cfg.widgets.playbutton_anchor.x,cfg.widgets.playbutton_anchor.y))
 		.size(cfg.widgets.playbutton_size);
@@ -123,7 +124,7 @@ export default (controls,grid)=>{
 	
 
 	controls.selectAll(".slider").data(sliders).enter().append(widgets.widget);
-//	controls.selectAll(".toggle").data(toggles).enter().append(widgets.widget);
+	controls.selectAll(".toggle").data(toggles).enter().append(widgets.widget);
 	controls.selectAll(".button").data(buttons).enter().append(widgets.widget);
 	controls.selectAll(".radio").data(radios).enter().append(widgets.widget)
 
@@ -131,6 +132,6 @@ export default (controls,grid)=>{
 
 // here are all the exported objects, all the parameters, their associated widgets and the action buttons
 
-export {sliders,radios,go,setup,reset,variables,choices}
+export {sliders,radios,go,setup,reset,variables,choices,booleans}
 
 

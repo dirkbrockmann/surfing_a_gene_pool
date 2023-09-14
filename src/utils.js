@@ -9,7 +9,7 @@ const toArray = (x) => map(toPairs(x),d=>d[1]);
 
 const add_widget = (p,w) => each(p,(v,i) => v["widget"]=w[i]);	
 
-const get_variables = (p) => pickBy(p, v =>  has(v, "range"))  
+const get_variables = (p) => pickBy(p, v =>  has(v, "range"))
 const get_booleans = (p) => pickBy(p, v =>  isBoolean(v.default))  
 const get_choices = (p) => pickBy(p, v =>  has(v, "choices"))  
 

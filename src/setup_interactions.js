@@ -1,4 +1,4 @@
-// here all functions are connected to the widgets, these functions can be defined here, like the 
+	// here all functions are connected to the widgets, these functions can be defined here, like the 
 // startstop function connected to the go button, or they can be functions defined elsewhere,
 // like the initialization functions, or reset parameter functions. Regardless, here
 // all functions that need to be execuded for example if a controls element is modified, are connected
@@ -25,6 +25,11 @@ const startstop = (display,controls,config) => {
 		.transition(1000).style("opacity",ct.go.value()?0:1)
 	controls.select("#slider_local_capacity").select(".track-overlay")
 		.style("pointer-events",ct.go.value()?"none":null)
+
+	controls.select("#slider_edge_size")
+		.transition(1000).style("opacity",ct.go.value()?0:1)
+	controls.select("#slider_edge_size").select(".track-overlay")
+		.style("pointer-events",ct.go.value()?"none":null)
 	
 	controls.select("#slider_initial_radius")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
@@ -33,6 +38,10 @@ const startstop = (display,controls,config) => {
 	
 	controls.select("#radio_number_of_mutants")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
+
+	controls.select("#radio_start_layout")
+		.transition(1000).style("opacity",ct.go.value()?0:1)
+
 	controls.select("#slider_initial_radius").select(".track-overlay")
 		.style("pointer-events",ct.go.value()?"none":null)
 }
@@ -51,6 +60,12 @@ export default (display,controls,config) => {
  		controls.select("#button_play").transition(1000).style("opacity",null)
 		controls.select("#button_play").style("pointer-events",null) 
 	})
+
+	param.edge_size.widget.update_end(()=>{
+		initialize(display,config)
+ 		controls.select("#button_play").transition(1000).style("opacity",null)
+		controls.select("#button_play").style("pointer-events",null) 
+	})
 	
 	param.initial_radius.widget.update_end(()=>{
 		initialize(display,config)
@@ -62,6 +77,13 @@ export default (display,controls,config) => {
  		controls.select("#button_play").transition(1000).style("opacity",null)
 		controls.select("#button_play").style("pointer-events",null) 
 	})
+
+	param.start_layout.widget.update(()=>{
+		initialize(display,config)
+ 		controls.select("#button_play").transition(1000).style("opacity",null)
+		controls.select("#button_play").style("pointer-events",null) 
+	})
+
 	param.local_capacity.widget.update_end(()=>{
 		initialize(display,config)
  		controls.select("#button_play").transition(1000).style("opacity",null)

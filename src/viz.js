@@ -16,10 +16,35 @@ const Y = d3.scaleLinear().domain([-0.5,0.5]);
 
 var ctx,dL,W,H;
 
+let colors = []
+colors[0] = [1,0,0]
+colors[1] = [0,1,0]
+colors[2] = [0,0,1]
+colors[3] = [0.5,0.5,0]
+colors[4] = [0.5,0,0.5]
+colors[5] = [0,0.5,0.5]
+
+
 function agent_color(a){
 	const nm = param.number_of_mutants.widget.value();
 	const c = param.local_capacity.widget.value();
-	return nm == 0 ? d3.rgb(255*a.u/c,255*a.v/c,0,(a.u+a.v)/c) : d3.rgb(255*a.u/c,255*a.v/c,255*a.w/c,(a.u+a.v+a.w)/c)
+
+	let color = [0, 0, 0]
+	for (var i = 0; i < nm+2; i++) {
+		color[0] += (colors[i][0] * (a.ma[i] / c))
+		color[1] += (colors[i][1] * (a.ma[i] / c))
+		color[2] += (colors[i][2] * (a.ma[i] / c))
+	}
+	
+	let tB = a.ma.reduce(function(a, b){
+ 				 return a + b;
+	});  
+
+	color[0] = 1  - (tB/c) * (1-color[0])
+	color[1] = 1  - (tB/c) * (1-color[1])
+	color[2] = 1  - (tB/c) * (1-color[2])
+
+	return d3.rgb(255*color[0],255*color[1],255*color[2])
 }
 
 // the initialization function, this is bundled in simulation.js with the initialization of
@@ -47,10 +72,6 @@ const initialize = (display,config) => {
 		ctx.fillRect(X(c[0].x),X(c[0].y),X(c[2].x)-X(c[0].x),X(c[2].y)-X(c[0].y))
 	})
 	
-	 // ctx.strokeStyle = "black";
- // 	 ctx.lineWidth = 4;
- // 	 ctx.strokeRect(0, 0, W, H);
-	
 };
 
 // the go function, this is bundled in simulation.js with the go function of
@@ -59,16 +80,18 @@ const initialize = (display,config) => {
 // panel as a function of the model quantities.
 
 const go = (display,config) => {
-	
-	ctx.clearRect(1, 1, W-2, H-2);
+	let drawn = 0
 	each(agents,a=>{
-		const c = a.cell();		
-		const color = agent_color(a);
+		if(a.update_flag){
+			const c = a.cell();		
+			const color = agent_color(a);
 		
-		ctx.fillStyle=color;
-		ctx.strokeStyle=color;
-		ctx.lineWidth = 0;
-		ctx.fillRect(X(c[0].x),X(c[0].y),X(c[2].x)-X(c[0].x),X(c[2].y)-X(c[0].y))
+			ctx.fillStyle=color;
+			ctx.strokeStyle=color;
+			ctx.lineWidth = 0;
+			ctx.fillRect(X(c[0].x),X(c[0].y),X(c[2].x)-X(c[0].x),X(c[2].y)-X(c[0].y))
+			drawn++
+		}
 	})
 	
 	// ctx.strokeStyle = "black";
