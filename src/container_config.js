@@ -8,7 +8,7 @@ export default {
 	controls_border:false,
 	display_border:true,
 	debug_lattice:"debug-grid-16",
-	controls_grid:{nx:12,ny:18},
+	controls_grid:{nx:12,ny:20},
 	display_size: {width:804,height:804},
 	controls_size: {width:480,height:580},
 	display_class:"fl w-100 w-50-ns pa2 ph3-ns",

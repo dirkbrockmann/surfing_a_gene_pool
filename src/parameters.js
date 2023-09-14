@@ -17,6 +17,9 @@ export default {
 		proportional_defusion:{
 			default : false
 		},
+		proportional_reproduction:{
+			default : false
+		},
 		reproduction_rate:{
 			range : [0.05,1],
 			default : 0.3

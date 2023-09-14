@@ -93,11 +93,16 @@ const go  = () => {
 	}))
 	
 	each(active,a=>{
-		if (Math.random()<param.reproduction_rate.widget.value()){
-			// pick a individum to reproduce at random
-			let tB = a.ma.reduce(function(a, b){
- 				 return a + b;
-			});  
+		let tB = a.ma.reduce(function(a, b){
+ 				return a + b;
+		});
+
+		let reproduce = param.proportional_reproduction.widget.value()?
+				Math.random()<param.reproduction_rate.widget.value()*(tB/param.local_capacity.widget.value()) :
+				Math.random()<param.reproduction_rate.widget.value();
+				
+		if (reproduce){
+			// pick a individum to reproduce at random  
 			let pick = Math.random() * tB
 			for(let i = 0; pick > 0; i++){
 				if(pick <= a.ma[i]){

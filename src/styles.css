@@ -11,3 +11,7 @@
 	stroke: black;
 	stroke-width: 1px;
 }
+
+input[type="radio"]{
+  margin: 0 10px 0 10px;
+}
