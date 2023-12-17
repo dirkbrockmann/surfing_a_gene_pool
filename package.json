@@ -1,7 +1,7 @@
 {
   "name": "@explorables/surfing_a_gene_pool",
   "title": "Surfing a Gene Pool",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "CC-BY-4.0",
   "description": "Expansion of clones with idential fitness - An illustration of pattern formation in bacterial populations.",
   "repository": {
