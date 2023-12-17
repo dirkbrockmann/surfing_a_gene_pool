@@ -6,13 +6,10 @@ import setup_container from "./setup_container.js"
 import setup_interactions from "./setup_interactions.js"
 import setup_controls from "./controls.js"
 import {initialize as setup_simulation} from "./simulation.js"
+import {go} from "./controls.js"
 
-// load is called in the webpage
-// the container configuration can be passed as an argument, including classes and styles for the 
-// display and controls container. The defaults for this are imported above
 
-// the function below usually doesn't have to change structurally. It is advisable to comment
-// out steps from below to work on the code that is called sequentially
+var display,controls,grid;
 
 const load = function (container_id,config=cfg) {
 	
@@ -20,20 +17,24 @@ const load = function (container_id,config=cfg) {
 	
 	const container = setup_container(container_id,config);
 
-	const display = container.display;
-	const controls = container.controls;
-	const grid = container.grid;
+	display = container.display;
+	controls = container.controls;
+	grid = container.grid;
 		
-// setting up the controls and actions
-	
-	setup_controls(controls,grid); // this adds the actual widgets to the control panel, and connects controls to the parameters for later access
-	
-	setup_interactions(display,controls,config); // this connects actions to the widgets, like starting the simulation, pausing it, resetting variables, anything connected to the change of a widget state.
 
-// initializing the system
+	
+	setup_controls(controls,grid); 
+	
+	setup_interactions(display,controls,config); 
 	
 	setup_simulation(display,config)
 	
 }
 
-export {load,cfg as config};
+const halt  = function(){
+	if(go.value()==1){
+			go.press(controls)
+	}
+}
+
+export {load,cfg as config,halt};
