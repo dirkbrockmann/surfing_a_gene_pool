@@ -23,17 +23,17 @@ const startstop = (display,controls,config) => {
 
 	controls.select("#slider_local_capacity")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
-	controls.select("#slider_local_capacity").select(".track-overlay")
+	controls.select("#slider_local_capacity").selectAll("*")
 		.style("pointer-events",ct.go.value()?"none":null)
 	
 	controls.select("#slider_initial_radius")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
-	controls.select("#slider_initial_radius").select(".track-overlay")
+	controls.select("#slider_initial_radius").selectAll("*")
 		.style("pointer-events",ct.go.value()?"none":null)
 	
 	controls.select("#radio_number_of_mutants")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
-	controls.select("#slider_initial_radius").select(".track-overlay")
+	controls.select("#slider_initial_radius").selectAll("*")
 		.style("pointer-events",ct.go.value()?"none":null)
 }
 

@@ -1,5 +1,9 @@
 @import '~tachyons/css/tachyons.min.css';
 
+
+:global .wuttke {
+	
+}
 .control-panel > .border {
 	border:1px black solid;
 }
