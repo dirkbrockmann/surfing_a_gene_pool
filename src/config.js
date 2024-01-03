@@ -21,8 +21,7 @@ export default {
 		radio_buttonsize:35,
 		radio_orientation:"horizontal",
 		radio_label_position:"right",
-		radio_shape:"round",
-		fontsize:20
+		radio_shape:"round"
 	},
 	simulation: {
 		delay:0

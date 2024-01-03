@@ -1,10 +1,3 @@
-// here all functions are connected to the widgets, these functions can be defined here, like the 
-// startstop function connected to the go button, or they can be functions defined elsewhere,
-// like the initialization functions, or reset parameter functions. Regardless, here
-// all functions that need to be execuded for example if a controls element is modified, are connected
-// to the update() method of an widget object. See below.
-
-
 import {interval} from "d3"
 import * as ct from "./controls.js"
 import cfg from "./config.js"
@@ -15,26 +8,25 @@ import {iterate,initialize,update} from "./simulation.js"
 
 var timer = {}
 
-// this defines a startstop simulation function that execute the function iterate() that is defined in simulation.js
-// it also uses information defined in config.js, in this case the delay time between iteration steps.
-
 const startstop = (display,controls,config) => {
 	ct.go.value() == 1 ? timer = interval(()=>iterate(display,controls,config),cfg.simulation.delay) : timer.stop()
 
 	controls.select("#slider_local_capacity")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
+
 	controls.select("#slider_local_capacity").selectAll("*")
 		.style("pointer-events",ct.go.value()?"none":null)
 	
 	controls.select("#slider_initial_radius")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
+
 	controls.select("#slider_initial_radius").selectAll("*")
 		.style("pointer-events",ct.go.value()?"none":null)
 	
 	controls.select("#radio_number_of_mutants")
 		.transition(1000).style("opacity",ct.go.value()?0:1)
-	controls.select("#slider_initial_radius").selectAll("*")
 		.style("pointer-events",ct.go.value()?"none":null)
+		
 }
 
 // this function is called by index.js to connect actions and update functions to the explorables.

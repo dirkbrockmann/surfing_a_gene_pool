@@ -1,23 +1,11 @@
-// this is a module that contains most of the explorable specific code
-// the "math" of the explorable, the model itself, without the elements
-// of visualization which are done in viz.js
-
 import param from "./parameters.js"
 import {each,range,map,mean,filter,shuffle} from "lodash-es"
 import {dist} from "./utils"
 import {square} from "lattices"
 
-// const L = param.L;
-// const dt = param.dt;
-
-// typically objects needed for the explorable
-// are defined here
-
 var agents = [];
 var boundary_set = []
 
-// the initialization function, this is bundled in simulation.js with the initialization of
-// the visualization and effectively executed in index.js when the whole explorable is loaded
 
 const initialize = () => {
 
@@ -46,9 +34,6 @@ const initialize = () => {
 	
 };
 
-// the go function, this is bundled in simulation.js with the go function of
-// the visualization, typically this is the iteration function of the model that
-// is run in the explorable.
 
 const go  = () => {
 	
@@ -95,16 +80,6 @@ const go  = () => {
 	return filter(boundary_set,b=>{return b.v+b.w+b.u>0}).length>0
 }
 
-// the update function is usually not required for running the explorable. Sometimes
-// it makes sense to have it, e.g. to update the model, if a parameter is changed,
-// e.g. a radio button is pressed. 
+const update = () => {}
 
-const update = () => {
-	
-	//each(agents,x => {x.active = x.index < param.number_of_particles.widget.value() ? true : false})
-
-}
-
-// the three functions initialize, go and update are exported, also all variables
-// that are required for the visualization
 export {agents,initialize,go,update}
