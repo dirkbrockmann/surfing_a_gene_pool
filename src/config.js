@@ -24,6 +24,6 @@ export default {
 		radio_shape:"round"
 	},
 	simulation: {
-		delay:0
+		delay:10
 	}
 }
