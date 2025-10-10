@@ -14,7 +14,7 @@ export default () => {
 	  const subtitle = pkg.subtitle;
 	  const description = pkg.description;
       const namespace = name.replace(/[-\s]/g, '_');
-      const containerId = `${namespace}_container`;
+      const containerId = `${namespace}`;
 
       const templatePath = path.resolve('./templates/index.template.html');
       const outputPath = path.resolve('./dist/index.html');

@@ -8,7 +8,7 @@
 
 This explorable illustrates pattern formation in bacterial populations in which different clones with identical fitness expand in space.
 
-The explorable is part of the [**Complexity Exporables Collection**](https://www.complexity-explorables.org). For more information about the system and its behavior consult the explorable
+The explorable is part of the [**Complexity Explorables Collection**](https://www.complexity-explorables.org). For more information about the system and its behavior consult the explorable
 > [**“Surfing a Gene Pool” - Expansion of clones with idential fitness**](https://www.complexity-explorables.org/explorables/surfing-a-gene-pool)
 
 ## Usage & Installation
@@ -24,8 +24,11 @@ If you want to run a local copy without having to rely on the nasty internet, th
 is to install it via `npm`:
 
 ```shell
+mkdir surfing_a_gene_pool
+cd surfing_a_gene_pool
+npm init -y
 npm install @explorables/surfing_a_gene_pool
-open node_modules/@explorables/surfing_a_gene_pool/dist/index.html 
+npx http-server node_modules/@explorables/surfing_a_gene_pool/dist/ 
 ```
 
 ### Embedding the explorable in your site
